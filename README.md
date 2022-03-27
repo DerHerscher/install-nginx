@@ -6,7 +6,8 @@ This Role installs nginx as an reverse proxy
 Requirements
 ------------
 
-None
+You need to generate an dhparams.pem file and place it in /files/etc/ssl/private/ beforee using this role.
+For that you can use ```openssl dhparam -out dhparams.pem 4096```
 
 Role Variables
 --------------
