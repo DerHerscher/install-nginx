@@ -1,0 +1,2 @@
+files/etc/nginx/ssl/private/dhparams.pem
+files/etc/ssl/private/dhparams.pem

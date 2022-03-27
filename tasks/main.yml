@@ -1,0 +1,40 @@
+---
+# tasks file for install-nginx
+- name: install required packages
+  apt:
+    name:
+      - vim-nox
+      - nginx
+      - nginx-extras
+    update_cache: yes
+    state: present
+
+  #DH Params have to be generate beforehand.
+  #You can use "openssl dhparam -out dhparams.pem 4096"
+- name: copy dhparam.pem
+  copy:
+    src: etc/ssl/private/dhparams.pem
+    dest: /etc/ssl/private/
+    owner: root
+    group: root
+    mode: 0600
+  notify:
+    - restart nginx service
+
+- name: copy nginx config
+  copy:
+    src: etc/nginx/nginx.conf
+    dest: /etc/nginx/nginx.conf
+    force: yes
+    owner: root
+    group: root
+    mode: 0640
+  notify:
+    - restart nginx service
+
+- name: delete default http page
+  file:
+    dest: /etc/nginx/sites-enabled/default
+    state: absent
+  notify:
+    - restart nginx service
